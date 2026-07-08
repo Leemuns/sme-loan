@@ -13,11 +13,10 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
-    "baseUrl": "src/",
     "paths": {
-      "@/components/*": ["components/*"],
-      "@/providers/*": ["providers/*"],
-      "@/stores/*": ["stores/*"]
+      "@/components/*": ["/src/components/*"],
+      "@/providers/*": ["/src/providers/*"],
+      "@/stores/*": ["/src/stores/*"]
     },
     "plugins": [
       {
