@@ -14,9 +14,9 @@
     "jsx": "react-jsx",
     "incremental": true,
     "paths": {
-      "@/components/*": ["/src/components/*"],
-      "@/providers/*": ["/src/providers/*"],
-      "@/stores/*": ["/src/stores/*"]
+      "@/components/*": ["./src/components/*"],
+      "@/providers/*": ["./src/providers/*"],
+      "@/stores/*": ["./src/stores/*"]
     },
     "plugins": [
       {

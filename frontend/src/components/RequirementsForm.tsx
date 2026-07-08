@@ -1,8 +1,8 @@
 "use client";
 
-import { useLoanStore } from "@/providers/loanStoreProvider";
-import { useRouter } from "next/navigation";
 import { type SyntheticEvent } from "react";
+import { useRouter } from "next/navigation";
+import { useLoanStore } from "@/providers/loanStoreProvider";
 
 export default function ContactForm() {
   const router = useRouter();

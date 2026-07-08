@@ -1,3 +1,9 @@
+import { Container } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -5,7 +11,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <AppRouterCacheProvider>
+          <Container
+            sx={{
+              minHeight: "98vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Header />
+            {children}
+            <Footer />
+          </Container>
+        </AppRouterCacheProvider>
+      </body>
     </html>
   );
 }
