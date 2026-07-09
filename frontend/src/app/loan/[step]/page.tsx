@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
 
-import ContactForm from "@/components/ContactForm";
-import CompanyForm from "@/components/CompanyForm";
-import RequirementsForm from "@/components/RequirementsForm";
-import SummaryForm from "@/components/SummaryForm";
+import ContactForm from "@/components/ApplicationForm/ContactForm";
+import CompanyForm from "@/components/ApplicationForm/CompanyForm";
+import RequirementsForm from "@/components/ApplicationForm/RequirementsForm";
+import SummaryForm from "@/components/ApplicationForm/SummaryForm";
 
 type Step = "contact" | "company" | "requirements" | "summary" | "submitted";
 
