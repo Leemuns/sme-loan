@@ -2,9 +2,9 @@ from sqlalchemy import or_
 from sqlalchemy.orm import Session
 from typing import List
 
-import auth
-from models import User
-from schemas import UserCreate
+from . import utils
+from .models import User
+from .schemas import UserCreate
 
 
 def get_users(db: Session) -> List[User]:
@@ -25,7 +25,7 @@ def create_user(db: Session, user: UserCreate) -> (User | None):
         return None
     
     user_data = user.model_dump(exclude={'password'})
-    user_data['password_hash'] = auth.get_password_hash(user.password)
+    user_data['password_hash'] = utils.get_password_hash(user.password)
     new_user = User(**user_data)
     db.add(new_user)
     db.commit()

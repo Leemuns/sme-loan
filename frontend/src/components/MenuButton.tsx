@@ -14,6 +14,7 @@ export default function MenuButton() {
     { name: "Home", path: "/" },
     { name: "Log in", path: "/login" },
     { name: "Sign up", path: "/signup" },
+    { name: "Log out", path: "/api/auth/logout" },
   ];
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -24,11 +25,21 @@ export default function MenuButton() {
     setAnchorEl(null);
   };
 
-  const handleNavigate = (path: string) => {
+  const handleNavigate = async (path: string) => {
     handleClose();
-    if (pathname !== path) {
-      router.push(path);
+    if (pathname === path) {
+      return;
     }
+
+    if (path.includes("/api/")) {
+      const res = await fetch(path, { method: "POST" });
+      if (res.ok) {
+        console.log("logged out");
+      }
+      return;
+    }
+
+    router.push(path);
   };
 
   return (

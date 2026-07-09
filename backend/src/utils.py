@@ -1,6 +1,6 @@
 import jwt
 from jwt.exceptions import InvalidTokenError
-from datetime import datetime, timedelta, timezone
+from datetime import datetime, timedelta
 from pwdlib import PasswordHash
 from dotenv import load_dotenv
 import os
@@ -29,15 +29,18 @@ def create_access_token(data: dict) -> str:
     expire = datetime.now() + timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
     to_encode.update({"exp": expire})
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+    print(encoded_jwt)
     return encoded_jwt
 
 
 def verify_token(token: str) -> (str | None):
+    print(type(token))
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
-        username: str = payload.get("sub")
-        if username is None:
+        id: str = payload.get("sub")
+        if id is None:
             return None
-        return username
-    except InvalidTokenError:
+        return id 
+    except InvalidTokenError as err:
+        print(err)
         return None
