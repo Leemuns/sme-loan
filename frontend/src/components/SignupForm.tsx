@@ -3,6 +3,8 @@
 import { useState, type SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 
+import usersService from "@/services/users";
+
 export default function ContactForm() {
   const router = useRouter();
   const [username, setUsername] = useState("");
@@ -14,19 +16,12 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      const response = await fetch("/api/users", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, fullname, email, password }),
-      });
-
-      if (response.ok) {
-        setUsername("");
-        setPassword("");
-        setEmail("");
-        setFullname("");
-        router.replace("/");
-      }
+      await usersService.signup({ username, fullname, email, password });
+      setUsername("");
+      setPassword("");
+      setEmail("");
+      setFullname("");
+      router.replace("/");
     } catch (err) {
       console.error(err);
     }

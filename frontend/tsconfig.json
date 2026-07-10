@@ -16,7 +16,9 @@
     "paths": {
       "@/components/*": ["./src/components/*"],
       "@/providers/*": ["./src/providers/*"],
-      "@/stores/*": ["./src/stores/*"]
+      "@/stores/*": ["./src/stores/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/hooks/*": ["./src/hooks/*"]
     },
     "plugins": [
       {

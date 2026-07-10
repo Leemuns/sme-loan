@@ -35,6 +35,6 @@ def create_new_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return new_db_user
 
 
-@router.get("/me", response_model=schemas.User)
+@router.get("/me", response_model=schemas.UserBase)
 async def read_users_me(current_user: models.User = Depends(get_current_user)):
     return current_user

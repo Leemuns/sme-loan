@@ -1,4 +1,4 @@
-import { LoanStoreProvider } from "@/providers/loanStoreProvider";
+import { LoanStoreProvider } from "@/providers/LoanStoreProvider";
 
 export default function LoanLayout({
   children,

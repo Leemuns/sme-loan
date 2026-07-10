@@ -2,7 +2,7 @@
 
 import { type SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
-import { useLoanStore } from "@/providers/loanStoreProvider";
+import { useLoanStore } from "@/providers/LoanStoreProvider";
 
 export default function ContactForm() {
   const router = useRouter();

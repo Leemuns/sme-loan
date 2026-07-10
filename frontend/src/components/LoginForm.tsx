@@ -3,8 +3,11 @@
 import { useState, type SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 
+import useLogin from "@/hooks/session/useLogin";
+
 export default function ContactForm() {
   const router = useRouter();
+  const login = useLogin();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
@@ -12,17 +15,10 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: `grant_type=password&username=${username}&password=${password}`,
-      });
-
-      if (res.ok) {
-        setUsername("");
-        setPassword("");
-        router.replace("/");
-      }
+      login({ username, password });
+      setUsername("");
+      setPassword("");
+      router.replace("/");
     } catch (err) {
       console.error(err);
     }

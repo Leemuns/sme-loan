@@ -5,16 +5,20 @@ import { usePathname, useRouter } from "next/navigation";
 import { IconButton, Menu, MenuItem } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 
+import useSession from "@/hooks/session/useSession";
+import useLogout from "@/hooks/session/useLogout";
+
 export default function MenuButton() {
   const router = useRouter();
   const pathname = usePathname();
+  const { sessionUser, status } = useSession(); // TODO: handle status
+  const logout = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const pages = [
     { name: "Home", path: "/" },
-    { name: "Log in", path: "/login" },
-    { name: "Sign up", path: "/signup" },
-    { name: "Log out", path: "/api/auth/logout" },
+    { name: "Log in", path: "/login", showIfLoggedOut: true },
+    { name: "Sign up", path: "/signup", showIfLoggedOut: true },
   ];
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -26,20 +30,15 @@ export default function MenuButton() {
   };
 
   const handleNavigate = async (path: string) => {
+    if (pathname !== path) {
+      router.push(path);
+    }
     handleClose();
-    if (pathname === path) {
-      return;
-    }
+  };
 
-    if (path.includes("/api/")) {
-      const res = await fetch(path, { method: "POST" });
-      if (res.ok) {
-        console.log("logged out");
-      }
-      return;
-    }
-
-    router.push(path);
+  const handleLogout = () => {
+    logout();
+    handleClose();
   };
 
   return (
@@ -70,11 +69,18 @@ export default function MenuButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {pages.map((page) => (
-          <MenuItem key={page.path} onClick={() => handleNavigate(page.path)}>
-            {page.name}
-          </MenuItem>
-        ))}
+        {pages
+          .filter((page) => {
+            // hide login/signup pages
+            if (page.showIfLoggedOut === undefined) return true;
+            return !sessionUser && page.showIfLoggedOut;
+          })
+          .map((page) => (
+            <MenuItem key={page.path} onClick={() => handleNavigate(page.path)}>
+              {page.name}
+            </MenuItem>
+          ))}
+        {sessionUser && <MenuItem onClick={handleLogout}>Log out</MenuItem>}
       </Menu>
     </>
   );
