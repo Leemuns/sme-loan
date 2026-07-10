@@ -1,13 +1,5 @@
 import { createStore } from "zustand/vanilla";
-
-export type LoanFields = {
-  name: string;
-  phone: string;
-  companyName: string;
-  industryType: string;
-  loanAmount: number;
-  tenure: number;
-};
+import { BusinessStructures, LoanFields } from "../types";
 
 export type LoanActions = {
   setField: (fields: Partial<LoanFields>) => void;
@@ -17,12 +9,15 @@ export type LoanActions = {
 export type LoanStore = LoanFields & LoanActions;
 
 export const defaultInitFields: LoanFields = {
-  name: "",
-  phone: "",
-  companyName: "",
-  industryType: "",
-  loanAmount: 0,
-  tenure: 0,
+  businessName: "",
+  businessRegistrationNumber: "",
+  businessCommencementDate: new Date(),
+  businessStructure: BusinessStructures.Proprietorship,
+  businessIsShariah: false,
+  contactName: "",
+  contactPosition: "",
+  contactEmail: "",
+  annualRevenue: 0,
 };
 
 export const createLoanStore = (initFields: LoanFields = defaultInitFields) => {

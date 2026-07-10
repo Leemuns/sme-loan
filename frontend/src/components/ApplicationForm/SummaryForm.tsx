@@ -4,7 +4,7 @@ import { useLoanStore } from "@/providers/LoanStoreProvider";
 import { useRouter } from "next/navigation";
 import { type SyntheticEvent } from "react";
 
-export default function ContactForm() {
+export default function SummaryForm() {
   const router = useRouter();
   const { name, companyName, industryType } = useLoanStore((state) => state);
 

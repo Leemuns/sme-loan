@@ -1,11 +1,20 @@
 import { notFound } from "next/navigation";
 
+import BusinessForm from "@/components/ApplicationForm/BusinessForm";
 import ContactForm from "@/components/ApplicationForm/ContactForm";
-import CompanyForm from "@/components/ApplicationForm/CompanyForm";
+import FinancialForm from "@/components/ApplicationForm/FinanceForm";
 import RequirementsForm from "@/components/ApplicationForm/RequirementsForm";
+import DocumentsForm from "@/components/ApplicationForm/DocumentsForm";
 import SummaryForm from "@/components/ApplicationForm/SummaryForm";
 
-type Step = "contact" | "company" | "requirements" | "summary" | "submitted";
+type Step =
+  | "business"
+  | "contact"
+  | "financial"
+  | "requirements"
+  | "documents"
+  | "summary"
+  | "confirmation";
 
 export default async function Loan({
   params,
@@ -14,21 +23,20 @@ export default async function Loan({
 }) {
   const { step } = await params;
 
-  // const hasCompletedShipping = checkSomeCookieOrState();
-  // if (step === 'payment' && !hasCompletedShipping) {
-  //   redirect('/checkout/shipping');
-  // }
-
   switch (step) {
+    case "business":
+      return <BusinessForm />;
     case "contact":
       return <ContactForm />;
-    case "company":
-      return <CompanyForm />;
+    case "financial":
+      return <FinancialForm />;
     case "requirements":
       return <RequirementsForm />;
+    case "documents":
+      return <DocumentsForm />;
     case "summary":
       return <SummaryForm />;
-    case "submitted":
+    case "confirmation":
       return <h1>Submitted</h1>;
     default:
       const _exhaustiveCheck: never = step;
