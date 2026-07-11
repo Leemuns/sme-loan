@@ -6,7 +6,7 @@ import {
 } from "@mui/material";
 
 import { useLoanStore } from "@/providers/LoanStoreProvider";
-import { LoanFields, loanFieldsSchema } from "../../types";
+import { LoanFields } from "../../types";
 
 type LoanCheckBoxProps = {
   label: string;

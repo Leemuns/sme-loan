@@ -1,4 +1,4 @@
-import { TextField } from "@mui/material";
+import { TextField, TextFieldProps } from "@mui/material";
 import { PatternFormat } from "react-number-format";
 
 import { useLoanStore } from "@/providers/LoanStoreProvider";
@@ -8,18 +8,20 @@ type LoanPatternFieldProps = {
   label: string;
   fieldName: keyof LoanFields;
   format: string;
+  disabled?: boolean;
 };
 
 export default function LoanPatternField({
   label,
   fieldName,
   format,
+  disabled = false,
 }: LoanPatternFieldProps) {
   const value = useLoanStore((state) => state[fieldName]);
   const setField = useLoanStore((state) => state.setField);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setField({ [fieldName]: e.target.value.trim() });
+  const handleChange = ({ value }: { value: string | undefined }) => {
+    setField({ [fieldName]: value || "" });
   };
 
   if (typeof value !== "string") {
@@ -33,7 +35,7 @@ export default function LoanPatternField({
     <PatternFormat
       label={label}
       value={value}
-      onChange={handleChange}
+      onValueChange={handleChange}
       customInput={TextField}
       format={format}
       error={error}
@@ -41,6 +43,7 @@ export default function LoanPatternField({
       size="small"
       margin="normal"
       fullWidth
+      disabled={disabled}
     />
   );
 }

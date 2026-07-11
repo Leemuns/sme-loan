@@ -38,6 +38,7 @@ export default function MenuButton() {
 
   const handleLogout = () => {
     logout();
+    router.push("/");
     handleClose();
   };
 

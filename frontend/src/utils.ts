@@ -1,3 +1,7 @@
+import { z } from "zod";
+
+const MAX_AMOUNT = 10 ** 10 - 1;
+
 const todayLocalMidnight = () => {
   const now = new Date();
   now.setHours(0, 0, 0, 0);
@@ -11,6 +15,7 @@ const toLocalMidnight = (date: Date) => {
 };
 
 export default {
+  MAX_AMOUNT,
   todayLocalMidnight,
   toLocalMidnight,
 };

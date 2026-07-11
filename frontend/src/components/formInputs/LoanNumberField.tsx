@@ -4,17 +4,17 @@ import { NumericFormat } from "react-number-format";
 import { useLoanStore } from "@/providers/LoanStoreProvider";
 import { LoanFields, loanFieldsSchema } from "../../types";
 
-type LoanCurrencyFieldProps = {
+type LoanNumberFieldProps = {
   label: string;
   fieldName: keyof LoanFields;
   disabled?: boolean;
 };
 
-export default function LoanCurrencyField({
+export default function LoanNumberField({
   label,
   fieldName,
   disabled = false,
-}: LoanCurrencyFieldProps) {
+}: LoanNumberFieldProps) {
   const value = useLoanStore((state) => state[fieldName]);
   const setField = useLoanStore((state) => state.setField);
 
@@ -23,7 +23,7 @@ export default function LoanCurrencyField({
   };
 
   if (typeof value !== "number") {
-    throw new Error("LoanCurrencyField value must be of type number");
+    throw new Error("LoanNumberField value must be of type number");
   }
 
   const parseResult = loanFieldsSchema.shape[fieldName].safeParse(value);
@@ -42,14 +42,7 @@ export default function LoanCurrencyField({
       fullWidth
       thousandSeparator
       valueIsNumericString
-      decimalScale={2}
-      fixedDecimalScale
       allowNegative={false}
-      slotProps={{
-        input: {
-          startAdornment: <InputAdornment position="start">RM</InputAdornment>,
-        },
-      }}
       disabled={disabled}
     />
   );
