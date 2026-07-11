@@ -15,9 +15,16 @@ export default function SummaryForm() {
   const router = useRouter();
   const fields = useLoan();
 
-  const handleSubmit = (e: SyntheticEvent) => {
+  const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
     console.log(fields);
+    const res = await fetch("/api/loans", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(fields),
+    });
+    if (!res.ok) throw new Error("Failed to add new loan");
+    // return await res.json();
     router.push("/loan/completion");
   };
 

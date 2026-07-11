@@ -11,7 +11,7 @@ export type LoanStore = LoanFields & LoanActions;
 
 export const defaultInitFields: LoanFields = {
   businessName: "",
-  businessRegistrationNumber: "",
+  businessRegistrationNo: "",
   businessCommencementDate: new Date(),
   businessActivitiesDescription: "",
   businessAddress: "",

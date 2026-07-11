@@ -1,3 +1,5 @@
+import re
+
 import jwt
 from jwt.exceptions import InvalidTokenError
 from datetime import datetime, timedelta
@@ -34,7 +36,6 @@ def create_access_token(data: dict) -> str:
 
 
 def verify_token(token: str) -> (str | None):
-    print(type(token))
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         id: str = payload.get("sub")
@@ -44,3 +45,11 @@ def verify_token(token: str) -> (str | None):
     except InvalidTokenError as err:
         print(err)
         return None
+
+pattern = re.compile(r'(?<!^)(?=[A-Z])')
+def camel_to_snake(text: str) -> (str):
+    return pattern.sub('_', text).lower()
+
+def snake_to_camel(text: str) -> (str):
+    parts = text.split('_')
+    return parts[0].lower() + ''.join(word.capitalize() for word in parts[1:])

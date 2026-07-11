@@ -3,8 +3,8 @@ import { useLoanStore } from "@/providers/LoanStoreProvider";
 export const useLoanBusiness = () => {
   return {
     businessName: useLoanStore((state) => state.businessName),
-    businessRegistrationNumber: useLoanStore(
-      (state) => state.businessRegistrationNumber,
+    businessRegistrationNo: useLoanStore(
+      (state) => state.businessRegistrationNo,
     ),
     businessCommencementDate: useLoanStore(
       (state) => state.businessCommencementDate,

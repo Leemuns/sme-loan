@@ -75,7 +75,7 @@ export interface UserCredentials {
 
 export const loanBusinessFieldsSchema = z.object({
   businessName: z.string().min(1, { error: "Business name cannot be empty" }),
-  businessRegistrationNumber: z.string().length(12, {
+  businessRegistrationNo: z.string().length(12, {
     error: "Business registration number must be 12 numbers long",
   }),
   businessCommencementDate: z

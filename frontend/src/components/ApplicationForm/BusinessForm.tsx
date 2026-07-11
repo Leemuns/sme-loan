@@ -61,7 +61,7 @@ export default function BusinessForm({ readOnly = false }: BusinessFormProps) {
 
       <LoanPatternField
         label="Business Registration Number"
-        fieldName="businessRegistrationNumber"
+        fieldName="businessRegistrationNo"
         format="############"
         disabled={readOnly}
       />
