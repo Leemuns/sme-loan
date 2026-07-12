@@ -1,5 +1,5 @@
 import { Toolbar, Typography, Box } from "@mui/material";
-// import MenuButton from "@/components/MenuButton";
+import MenuButton from "@/components/MenuButton";
 
 export default function Header() {
   return (
@@ -26,7 +26,7 @@ export default function Header() {
           SMELoan
         </Typography>
 
-        {/* <MenuButton /> */}
+        <MenuButton />
       </Toolbar>
     </Box>
   );
