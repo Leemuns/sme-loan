@@ -1,6 +1,6 @@
 import { TextField, TextFieldProps } from "@mui/material";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { LoanFields, loanFieldsSchema } from "../../types";
 
 type LoanTextFieldProps = {

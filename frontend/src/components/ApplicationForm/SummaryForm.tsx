@@ -4,7 +4,7 @@ import { type SyntheticEvent } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@mui/material";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { useLoan } from "@/hooks/useLoan";
 import loansService from "@/services/loans";
 import BusinessForm from "./BusinessForm";

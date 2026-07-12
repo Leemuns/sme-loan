@@ -1,4 +1,4 @@
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../providers/LoanStoreProvider";
 
 export const useLoanBusiness = () => {
   return {

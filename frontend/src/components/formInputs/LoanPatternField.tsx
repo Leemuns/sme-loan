@@ -1,7 +1,7 @@
-import { TextField, TextFieldProps } from "@mui/material";
+import { TextField } from "@mui/material";
 import { PatternFormat } from "react-number-format";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { LoanFields, loanFieldsSchema } from "../../types";
 
 type LoanPatternFieldProps = {

@@ -6,7 +6,7 @@ import {
   SelectChangeEvent,
 } from "@mui/material";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { LoanFields } from "../../types";
 
 type LoanMultipleFieldProps = {

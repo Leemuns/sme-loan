@@ -3,7 +3,7 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker, DatePickerProps } from "@mui/x-date-pickers/DatePicker";
 import "dayjs/locale/en-gb";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { LoanFields, loanFieldsSchema } from "../../types";
 import dayjs from "dayjs";
 import { PickerValue } from "@mui/x-date-pickers/internals";

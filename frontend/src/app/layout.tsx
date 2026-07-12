@@ -3,8 +3,8 @@ import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import QueryProvider from "@/providers/QueryProvider";
-import { LoanStoreProvider } from "@/providers/LoanStoreProvider";
+import QueryProvider from "../providers/QueryProvider";
+import { LoanStoreProvider } from "../providers/LoanStoreProvider";
 
 export default function RootLayout({
   children,

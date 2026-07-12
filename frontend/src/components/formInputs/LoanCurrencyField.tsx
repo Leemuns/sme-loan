@@ -1,7 +1,7 @@
 import { InputAdornment, TextField } from "@mui/material";
 import { NumericFormat } from "react-number-format";
 
-import { useLoanStore } from "@/providers/LoanStoreProvider";
+import { useLoanStore } from "../../providers/LoanStoreProvider";
 import { LoanFields, loanFieldsSchema } from "../../types";
 
 type LoanCurrencyFieldProps = {
