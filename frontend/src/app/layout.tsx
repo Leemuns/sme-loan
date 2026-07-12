@@ -1,10 +1,10 @@
-// import { Container } from "@mui/material";
-// import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
+import { Container } from "@mui/material";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v15-appRouter";
 
-// import Header from "@/components/Header";
-// import Footer from "@/components/Footer";
-// import QueryProvider from "../providers/QueryProvider";
-// import { LoanStoreProvider } from "../providers/LoanStoreProvider";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+import QueryProvider from "../providers/QueryProvider";
+import { LoanStoreProvider } from "../providers/LoanStoreProvider";
 
 export default function RootLayout({
   children,
@@ -14,23 +14,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        {/* <QueryProvider>
-          <AppRouterCacheProvider>
-            <LoanStoreProvider>
-              <Container
-                sx={{
-                  minHeight: "98vh",
-                  display: "flex",
-                  flexDirection: "column",
-                }}
-              >
-                <Header /> */}
-        {children}
-        {/* <Footer />
-              </Container>
-            </LoanStoreProvider>
-          </AppRouterCacheProvider>
-        </QueryProvider> */}
+        <QueryProvider>
+          {/* <AppRouterCacheProvider>
+            <LoanStoreProvider> */}
+          <Container
+            sx={{
+              minHeight: "98vh",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Header />
+            {children}
+            <Footer />
+          </Container>
+          {/* </LoanStoreProvider>
+          </AppRouterCacheProvider> */}
+        </QueryProvider>
       </body>
     </html>
   );
