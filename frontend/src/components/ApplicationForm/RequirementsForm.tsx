@@ -1,12 +1,9 @@
 "use client";
 
-import { useRef, useState, type SyntheticEvent } from "react";
-import { Alert } from "@mui/material";
-import { useRouter } from "next/navigation";
-
 import { loanRequirementsFieldsSchema } from "../../types";
-import LoanTextField from "../formInputs/LoanTextField";
 import { useLoanRequirements } from "@/hooks/useLoan";
+import FormWrapper from "./FormWrapper";
+import LoanTextField from "../formInputs/LoanTextField";
 import LoanCurrencyField from "../formInputs/LoanCurrencyField";
 import LoanNumberField from "../formInputs/LoanNumberField";
 
@@ -17,41 +14,19 @@ interface RequirementsFormProps {
 export default function RequirementsForm({
   readOnly = false,
 }: RequirementsFormProps) {
-  const [errorMessage, setErrorMessage] = useState("");
-  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter();
   const fields = useLoanRequirements();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    const parseResult = loanRequirementsFieldsSchema.safeParse(fields);
-
-    if (!parseResult.success) {
-      if (errorTimeoutRef.current) {
-        clearTimeout(errorTimeoutRef.current);
-        errorTimeoutRef.current = null;
-      }
-
-      setErrorMessage(parseResult.error.issues[0].message);
-
-      errorTimeoutRef.current = setTimeout(() => {
-        setErrorMessage("");
-        errorTimeoutRef.current = null;
-      }, 3000);
-
-      return;
-    }
-
-    router.push("/loan/summary");
+  const validator = () => {
+    return loanRequirementsFieldsSchema.safeParse(fields);
   };
 
-  const Wrapper = readOnly ? "div" : "form";
-
   return (
-    <Wrapper onSubmit={readOnly ? undefined : handleSubmit}>
-      {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
-
+    <FormWrapper
+      validator={validator}
+      nextPath="/loan/summary"
+      selfPath="/loan/requirements"
+      readOnly={readOnly}
+    >
       <LoanCurrencyField
         label="Loan Amount"
         fieldName="loanAmount"
@@ -69,8 +44,6 @@ export default function RequirementsForm({
         fieldName="loanPurpose"
         disabled={readOnly}
       />
-
-      {!readOnly && <button type="submit">Next</button>}
-    </Wrapper>
+    </FormWrapper>
   );
 }

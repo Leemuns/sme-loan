@@ -68,6 +68,7 @@ class LoanApplication(Base):
 
     id = Column(Integer, primary_key=True)
     status_id = Column(SmallInteger, ForeignKey("statuses.id"), nullable=False, default=1)
+    user_id = Column(SmallInteger, ForeignKey("users.id"), nullable=False)
 
     business_name = Column(String)
     business_registration_no = Column(String(12))

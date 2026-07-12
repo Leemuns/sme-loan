@@ -1,12 +1,9 @@
 "use client";
 
-import { useRef, useState, type SyntheticEvent } from "react";
-import { Alert } from "@mui/material";
-import { useRouter } from "next/navigation";
-
 import { BankNameValues, loanFinanceFieldsSchema } from "../../types";
-import LoanTextField from "../formInputs/LoanTextField";
 import { useLoanFinance } from "@/hooks/useLoan";
+import FormWrapper from "./FormWrapper";
+import LoanTextField from "../formInputs/LoanTextField";
 import LoanCurrencyField from "../formInputs/LoanCurrencyField";
 import LoanSelectField from "../formInputs/LoanPickField";
 
@@ -15,41 +12,19 @@ interface FinanceFormProps {
 }
 
 export default function FinanceForm({ readOnly = false }: FinanceFormProps) {
-  const [errorMessage, setErrorMessage] = useState("");
-  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter();
   const fields = useLoanFinance();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    const parseResult = loanFinanceFieldsSchema.safeParse(fields);
-
-    if (!parseResult.success) {
-      if (errorTimeoutRef.current) {
-        clearTimeout(errorTimeoutRef.current);
-        errorTimeoutRef.current = null;
-      }
-
-      setErrorMessage(parseResult.error.issues[0].message);
-
-      errorTimeoutRef.current = setTimeout(() => {
-        setErrorMessage("");
-        errorTimeoutRef.current = null;
-      }, 3000);
-
-      return;
-    }
-
-    router.push("/loan/requirements");
+  const validator = () => {
+    return loanFinanceFieldsSchema.safeParse(fields);
   };
 
-  const Wrapper = readOnly ? "div" : "form";
-
   return (
-    <Wrapper onSubmit={readOnly ? undefined : handleSubmit}>
-      {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
-
+    <FormWrapper
+      validator={validator}
+      nextPath="/loan/requirements"
+      selfPath="/loan/finance"
+      readOnly={readOnly}
+    >
       <LoanCurrencyField
         label="Annual Revenue"
         fieldName="annualRevenue"
@@ -80,8 +55,6 @@ export default function FinanceForm({ readOnly = false }: FinanceFormProps) {
         fieldName="bankNumber"
         disabled={readOnly}
       />
-
-      {!readOnly && <button type="submit">Next</button>}
-    </Wrapper>
+    </FormWrapper>
   );
 }

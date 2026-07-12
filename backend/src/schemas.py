@@ -17,7 +17,6 @@ class UserCreate(UserBase):
 
 class User(UserBase):
     id: int
-    password_hash: str
 
     class config: 
         from_attribute = True

@@ -25,9 +25,11 @@ class OAuth2PasswordBearerWithCookie(OAuth2PasswordBearer):
                     return None
             return token
 
+
 oauth2_scheme = OAuth2PasswordBearerWithCookie(tokenUrl="/api/auth/login")
 
-async def get_current_user(token: Optional[str] = Depends(oauth2_scheme), db: Session = Depends(get_db)):
+
+async def get_current_user(token: Optional[str] = Depends(oauth2_scheme), db: Session = Depends(get_db)) -> models.User:
     id = utils.verify_token(token)
     if id is None:
         raise HTTPException(

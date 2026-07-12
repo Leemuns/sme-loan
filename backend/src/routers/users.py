@@ -12,9 +12,9 @@ router = APIRouter(
 )
 
 
-@router.get("", response_model=list[schemas.User])
-def get_all_users(db: Session = Depends(get_db)):
-    return services.get_users(db)
+# @router.get("", response_model=list[schemas.User])
+# def get_all_users(db: Session = Depends(get_db)):
+#     return services.get_users(db)
 
 
 # @app.get("api/users/{id}", response_model=schemas.User)

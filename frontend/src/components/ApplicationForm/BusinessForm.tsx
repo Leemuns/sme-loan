@@ -1,58 +1,33 @@
 "use client";
 
-import { useRef, useState, type SyntheticEvent } from "react";
-import { Alert } from "@mui/material";
-import { useRouter } from "next/navigation";
-
 import { BusinessStructureValues, loanBusinessFieldsSchema } from "../../types";
+import { useLoanBusiness } from "@/hooks/useLoan";
+import FormWrapper from "./FormWrapper";
 import LoanTextField from "../formInputs/LoanTextField";
 import LoanDateField from "../formInputs/LoanDateField";
 import LoanSelectField from "../formInputs/LoanPickField";
 import LoanCheckBox from "../formInputs/LoanCheckBox";
 import LoanPatternField from "../formInputs/LoanPatternField";
 import LoanNumberField from "../formInputs/LoanNumberField";
-import { useLoanBusiness } from "@/hooks/useLoan";
 
 interface BusinessFormProps {
   readOnly?: boolean;
 }
 
 export default function BusinessForm({ readOnly = false }: BusinessFormProps) {
-  const [errorMessage, setErrorMessage] = useState("");
-  const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const router = useRouter();
   const fields = useLoanBusiness();
 
-  const handleSubmit = async (e: SyntheticEvent) => {
-    e.preventDefault();
-
-    const parseResult = loanBusinessFieldsSchema.safeParse(fields);
-
-    if (!parseResult.success) {
-      if (errorTimeoutRef.current) {
-        clearTimeout(errorTimeoutRef.current);
-        errorTimeoutRef.current = null;
-      }
-
-      setErrorMessage(parseResult.error.issues[0].message);
-
-      errorTimeoutRef.current = setTimeout(() => {
-        setErrorMessage("");
-        errorTimeoutRef.current = null;
-      }, 3000);
-
-      return;
-    }
-
-    router.push("/loan/contact");
+  const validator = () => {
+    return loanBusinessFieldsSchema.safeParse(fields);
   };
 
-  const Wrapper = readOnly ? "div" : "form";
-
   return (
-    <Wrapper onSubmit={readOnly ? undefined : handleSubmit}>
-      {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
-
+    <FormWrapper
+      validator={validator}
+      nextPath="/loan/contact"
+      selfPath="/loan/business"
+      readOnly={readOnly}
+    >
       <LoanTextField
         label="Business Name"
         fieldName="businessName"
@@ -115,8 +90,6 @@ export default function BusinessForm({ readOnly = false }: BusinessFormProps) {
         fieldName="businessIsShariah"
         disabled={readOnly}
       />
-
-      {!readOnly && <button type="submit">Next</button>}
-    </Wrapper>
+    </FormWrapper>
   );
 }

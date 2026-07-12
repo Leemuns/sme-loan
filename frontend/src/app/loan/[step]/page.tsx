@@ -37,7 +37,7 @@ export default async function Loan({
     case "summary":
       return <SummaryForm />;
     case "completion":
-      return <h1>Submitted</h1>;
+      return <h1>Submitted</h1>; // "You can track them in the home page when you login.
     default:
       const _exhaustiveCheck: never = step;
       notFound();

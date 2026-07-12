@@ -52,24 +52,20 @@ const phoneSchema = (fieldName: string) =>
     });
 
 // === User ===
+// TODO: zod validation for User
 
 export interface User {
+  id: string;
   username: string;
   fullname: string;
   email: string;
 }
 
-export interface NewUser {
-  username: string;
-  fullname: string;
-  email: string;
+export interface NewUser extends Omit<User, "id"> {
   password: string;
 }
 
-export interface UserCredentials {
-  username: string;
-  password: string;
-}
+export type UserCredentials = Pick<NewUser, "username" | "password">;
 
 // === Application Fields ===
 
@@ -142,3 +138,8 @@ export const loanFieldsSchema = z.object({
   ...loanRequirementsFieldsSchema.shape,
 });
 export type LoanFields = z.infer<typeof loanFieldsSchema>;
+
+export interface LoanApplication extends LoanFields {
+  id: number;
+  status: string;
+}
