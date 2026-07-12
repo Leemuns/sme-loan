@@ -23,8 +23,8 @@ export default function RequirementsForm({
   return (
     <FormWrapper
       validator={validator}
-      nextPath="/loan/summary"
-      selfPath="/loan/requirements"
+      nextPath="/loan-form/summary"
+      selfPath="/loan-form/requirements"
       readOnly={readOnly}
     >
       <LoanCurrencyField

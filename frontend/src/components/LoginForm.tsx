@@ -15,7 +15,7 @@ export default function ContactForm() {
     e.preventDefault();
 
     try {
-      login({ username, password });
+      await login({ username, password });
       setUsername("");
       setPassword("");
       router.replace("/");

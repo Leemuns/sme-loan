@@ -10,7 +10,6 @@ export default function useLogin() {
       queryClient.invalidateQueries({ queryKey: ["sessionUser"] });
     },
   });
-  return (credentials: UserCredentials) => loginMutation.mutate(credentials);
+  return async (credentials: UserCredentials) =>
+    await loginMutation.mutateAsync(credentials);
 }
-
-// TODO: should prob make this async so I can await the login results.

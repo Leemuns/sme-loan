@@ -1,7 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 
 import usersService from "@/services/users";
-import { User } from "../../types";
 
 export default function useSession() {
   const result = useQuery({
@@ -12,7 +11,7 @@ export default function useSession() {
   });
 
   return {
-    sessionUser: result.data as User | null,
+    sessionUser: result.data,
     status: result.status,
   };
 }

@@ -36,8 +36,8 @@ export default function MenuButton() {
     handleClose();
   };
 
-  const handleLogout = () => {
-    logout();
+  const handleLogout = async () => {
+    await logout();
     router.push("/");
     handleClose();
   };

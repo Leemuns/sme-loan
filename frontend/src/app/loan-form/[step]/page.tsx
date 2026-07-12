@@ -16,7 +16,7 @@ type Step =
   | "summary"
   | "completion";
 
-export default async function Loan({
+export default async function LoanForm({
   params,
 }: {
   params: Promise<{ step: Step }>;
@@ -37,7 +37,12 @@ export default async function Loan({
     case "summary":
       return <SummaryForm />;
     case "completion":
-      return <h1>Submitted</h1>; // "You can track them in the home page when you login.
+      return (
+        <h1>
+          Submitted! You can view track/view your loan applications in the home
+          page.
+        </h1>
+      );
     default:
       const _exhaustiveCheck: never = step;
       notFound();

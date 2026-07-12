@@ -143,3 +143,13 @@ export interface LoanApplication extends LoanFields {
   id: number;
   status: string;
 }
+
+export type LoanApplicationMinimal = Pick<
+  LoanApplication,
+  | "id"
+  | "status"
+  | "businessName"
+  | "loanAmount"
+  | "loanTenureYears"
+  | "loanPurpose"
+>;

@@ -81,6 +81,15 @@ class LoanApplication(LoanApplicationBase):
     status: str
 
 
+class LoanApplicationMinimal(BaseModel):
+    id: int
+    businessName: str
+    loanAmount: Decimal
+    loanTenureYears: int
+    loanPurpose: str
+    status: str
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str

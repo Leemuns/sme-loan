@@ -21,8 +21,8 @@ export default function FinanceForm({ readOnly = false }: FinanceFormProps) {
   return (
     <FormWrapper
       validator={validator}
-      nextPath="/loan/requirements"
-      selfPath="/loan/finance"
+      nextPath="/loan-form/requirements"
+      selfPath="/loan-form/finance"
       readOnly={readOnly}
     >
       <LoanCurrencyField

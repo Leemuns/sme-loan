@@ -62,6 +62,33 @@ def create_user(db: Session, user: schemas.UserCreate) -> (User | None):
 #     return loanApplications
 
 
+def get_loan_application(db: Session, loan_id: str, user: User) -> schemas.LoanApplication:
+    db_loan_application = db.query(LoanApplication)\
+        .options(
+            joinedload(LoanApplication.business_structure),
+            joinedload(LoanApplication.bank_name),
+            selectinload(LoanApplication.loan_languages).selectinload(LoanLanguage.language)
+        )\
+        .filter(LoanApplication.id==loan_id)\
+        .first()
+    
+    if not db_loan_application:
+        return None
+    
+    if db_loan_application.user_id != user.id:
+        return None
+
+    loan_application_dict = {utils.snake_to_camel(k): v for k, v in db_loan_application.__dict__.items()}
+    loan_application_dict["businessStructure"] = db_loan_application.business_structure.business_structure
+    loan_application_dict["bankName"] = db_loan_application.bank_name.bank_name
+    loan_application_dict["status"] = db_loan_application.status.status
+    loan_application_dict["contactLanguagePreferences"] = []
+    for language in db_loan_application.loan_languages:
+        loan_application_dict["contactLanguagePreferences"].append(language.language.language)
+
+    return schemas.LoanApplication(**loan_application_dict)
+
+
 def get_loan_applications_by_user(db: Session, user: User) -> List[schemas.LoanApplication]:
     db_loan_applications = db.query(LoanApplication)\
         .options(
@@ -71,18 +98,15 @@ def get_loan_applications_by_user(db: Session, user: User) -> List[schemas.LoanA
         )\
         .filter(LoanApplication.user_id==user.id)\
         .all()
+    
+    if not db_loan_applications:
+        return None
 
     loanApplications = []
     for loan_application_object in db_loan_applications:
         loan_application_dict = {utils.snake_to_camel(k): v for k, v in loan_application_object.__dict__.items()}
-        loan_application_dict["businessStructure"] = loan_application_object.business_structure.business_structure
-        loan_application_dict["bankName"] = loan_application_object.bank_name.bank_name
         loan_application_dict["status"] = loan_application_object.status.status
-        loan_application_dict["contactLanguagePreferences"] = []
-        for language in loan_application_object.loan_languages:
-            loan_application_dict["contactLanguagePreferences"].append(language.language.language)
-
-        loanApplications.append(schemas.LoanApplication(**loan_application_dict))
+        loanApplications.append(schemas.LoanApplicationMinimal(**loan_application_dict))
 
     return loanApplications
 

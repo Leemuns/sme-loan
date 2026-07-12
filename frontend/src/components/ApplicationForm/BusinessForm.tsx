@@ -24,8 +24,8 @@ export default function BusinessForm({ readOnly = false }: BusinessFormProps) {
   return (
     <FormWrapper
       validator={validator}
-      nextPath="/loan/contact"
-      selfPath="/loan/business"
+      nextPath="/loan-form/contact"
+      selfPath="/loan-form/business"
       readOnly={readOnly}
     >
       <LoanTextField

@@ -9,5 +9,5 @@ export default function useLogin() {
       queryClient.setQueryData(["sessionUser"], null);
     },
   });
-  return () => logoutMutation.mutate();
+  return async () => logoutMutation.mutateAsync();
 }
