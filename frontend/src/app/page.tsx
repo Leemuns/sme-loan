@@ -1,7 +1,7 @@
-import Link from "next/link";
-import { cookies } from "next/headers";
+// import Link from "next/link";
+// import { cookies } from "next/headers";
 
-import UserDashboard from "@/components/UserDashboard";
+// import UserDashboard from "@/components/UserDashboard";
 
 export default async function Home() {
   // const cookieStore = await cookies();
