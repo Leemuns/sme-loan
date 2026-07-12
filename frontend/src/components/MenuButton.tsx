@@ -72,7 +72,6 @@ export default function MenuButton() {
       >
         {pages
           .filter((page) => {
-            // hide login/signup pages
             if (page.showIfLoggedOut === undefined) return true;
             return !sessionUser && page.showIfLoggedOut;
           })
