@@ -23,6 +23,7 @@ export default function RequirementsForm({
   return (
     <FormWrapper
       validator={validator}
+      backPath="/loan-form/finance"
       nextPath="/loan-form/summary"
       selfPath="/loan-form/requirements"
       readOnly={readOnly}

@@ -32,6 +32,17 @@ export const Languages = {
 export type Language = (typeof BankNames)[keyof typeof BankNames];
 export const LanguagesValues = Object.values(Languages);
 
+export const FormStepValues = [
+  "business",
+  "contact",
+  "finance",
+  "requirements",
+  // "documents",
+  "summary",
+  "completion",
+] as const;
+export type FormStep = (typeof FormStepValues)[number];
+
 // === helper ===
 
 const currencySchema = (fieldName: string) =>

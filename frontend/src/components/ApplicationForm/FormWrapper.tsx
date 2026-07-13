@@ -3,11 +3,12 @@
 import { ReactNode, useRef, useState, type SyntheticEvent } from "react";
 import { ZodSafeParseResult } from "zod";
 import { useRouter } from "next/navigation";
-import { Alert, Button, Paper } from "@mui/material";
+import { Alert, Box, Button, Paper } from "@mui/material";
 
 interface FormWrapperProps {
   children: ReactNode;
   validator: () => ZodSafeParseResult<any>;
+  backPath?: string;
   selfPath: string;
   nextPath: string;
   readOnly: boolean;
@@ -16,6 +17,7 @@ interface FormWrapperProps {
 export default function FormWrapper({
   children,
   validator,
+  backPath,
   nextPath,
   selfPath,
   readOnly,
@@ -23,6 +25,11 @@ export default function FormWrapper({
   const router = useRouter();
   const [errorMessage, setErrorMessage] = useState("");
   const errorTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const handleBack = () => {
+    if (!backPath) return;
+    router.push(backPath);
+  };
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
@@ -75,14 +82,29 @@ export default function FormWrapper({
     <form onSubmit={handleSubmit}>
       {errorMessage !== "" && <Alert severity="error">{errorMessage}</Alert>}
       {children}
-      <Button
-        type="submit"
-        variant="outlined"
-        size="small"
-        sx={{ flexShrink: 0, mt: 2 }}
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-between",
+          mt: 2,
+        }}
       >
-        Next
-      </Button>
+        {backPath ? (
+          <Button
+            type="button"
+            variant="outlined"
+            color="error"
+            onClick={handleBack}
+          >
+            Back
+          </Button>
+        ) : (
+          <div></div>
+        )}
+        <Button type="submit" variant="contained">
+          Next
+        </Button>
+      </Box>
     </form>
   );
 }

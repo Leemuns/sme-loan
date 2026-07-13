@@ -11,15 +11,21 @@ import useLogout from "@/hooks/session/useLogout";
 export default function MenuButton() {
   const router = useRouter();
   const pathname = usePathname();
-  const { sessionUser, status } = useSession(); // TODO: handle status
+  const { sessionUser, status } = useSession();
   const logout = useLogout();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+
+  if (status === "error") throw new Error("Error getting session");
 
   const pages = [
     { name: "Home", path: "/" },
     { name: "Log in", path: "/login", showIfLoggedOut: true },
     { name: "Sign up", path: "/signup", showIfLoggedOut: true },
-  ];
+  ].filter((page) => {
+    if (!page.showIfLoggedOut) return true;
+    if (status === "pending" || sessionUser) return false; // Hide login/signup while loading session or if logged out
+    return true;
+  });
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -70,16 +76,11 @@ export default function MenuButton() {
         open={Boolean(anchorEl)}
         onClose={handleClose}
       >
-        {pages
-          .filter((page) => {
-            if (page.showIfLoggedOut === undefined) return true;
-            return !sessionUser && page.showIfLoggedOut;
-          })
-          .map((page) => (
-            <MenuItem key={page.path} onClick={() => handleNavigate(page.path)}>
-              {page.name}
-            </MenuItem>
-          ))}
+        {pages.map((page) => (
+          <MenuItem key={page.path} onClick={() => handleNavigate(page.path)}>
+            {page.name}
+          </MenuItem>
+        ))}
         {sessionUser && <MenuItem onClick={handleLogout}>Log out</MenuItem>}
       </Menu>
     </>

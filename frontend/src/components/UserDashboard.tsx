@@ -9,7 +9,9 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Typography,
 } from "@mui/material";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 
 import useUserLoanApplications from "@/hooks/useUserLoanApplications";
 import { LoanApplicationMinimal } from "../types";
@@ -70,6 +72,19 @@ export default function UserDashboard() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Typography
+        variant="caption"
+        sx={{
+          mb: 1,
+          color: "text.secondary",
+          display: "flex",
+          alignItems: "center",
+          gap: 0.5,
+        }}
+      >
+        <InfoOutlinedIcon fontSize="inherit" />
+        Click on any row to view the full application details.
+      </Typography>
     </div>
   );
 }

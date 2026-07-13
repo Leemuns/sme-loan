@@ -21,6 +21,7 @@ export default function ContactForm({ readOnly = false }: ContactFormProps) {
   return (
     <FormWrapper
       validator={validator}
+      backPath="/loan-form/business"
       nextPath="/loan-form/finance"
       selfPath="/loan-form/contact"
       readOnly={readOnly}

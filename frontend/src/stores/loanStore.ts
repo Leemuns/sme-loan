@@ -2,14 +2,22 @@ import { createStore } from "zustand";
 import { persist, createJSONStorage } from "zustand/middleware";
 import { BankNames, BusinessStructures, LoanFields } from "../types";
 
+export interface LoanStoreState extends LoanFields {
+  isStarted: boolean;
+  // activeStepNumber: number;
+}
+
 export type LoanActions = {
-  setField: (fields: Partial<LoanFields>) => void;
+  setField: (fields: Partial<LoanStoreState>) => void;
   clearFields: () => void;
 };
 
-export type LoanStore = LoanFields & LoanActions;
+export type LoanStore = LoanFields & LoanActions & LoanStoreState;
 
-export const defaultInitFields: LoanFields = {
+const defaultInitFields: LoanStoreState = {
+  isStarted: false,
+  // activeStepNumber: 0,
+
   businessName: "",
   businessRegistrationNo: "",
   businessCommencementDate: new Date(),
@@ -69,7 +77,9 @@ const customStorage = createJSONStorage(() => sessionStorage, {
   },
 });
 
-export const createLoanStore = (initFields: LoanFields = defaultInitFields) => {
+export const createLoanStore = (
+  initFields: LoanStoreState = defaultInitFields,
+) => {
   return createStore<LoanStore>()(
     persist(
       (set) => ({
