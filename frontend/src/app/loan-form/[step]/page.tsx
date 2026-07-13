@@ -26,8 +26,8 @@ export default async function LoanForm({
         return <FinanceForm />;
       case "requirements":
         return <RequirementsForm />;
-      case "documents":
-        return <DocumentsForm />;
+      // case "documents":
+      //   return <DocumentsForm />;
       case "summary":
         return <SummaryForm />;
       case "completion":
