@@ -15,6 +15,7 @@ const getLoanApplicationsCurrentUser = async (): Promise<
   LoanApplicationMinimal[] | null
 > => {
   const res = await fetch(baseUrl);
+  if (res.status === 400) return null;
   if (res.status === 404) return null;
   return await res.json();
 };

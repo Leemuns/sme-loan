@@ -30,7 +30,7 @@ router = APIRouter(
 def create_new_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     new_db_user = services.create_user(db, user)
     if not new_db_user:
-        raise HTTPException(status_code=400, detail="Username already registered")
+        raise HTTPException(status_code=400, detail="Username or email already registered")
     
     return new_db_user
 
